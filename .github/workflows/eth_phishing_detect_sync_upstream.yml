@@ -1,0 +1,95 @@
+name: Sync Upstream Repo and Extract Data - ETH Phishing Detect
+
+on:
+  workflow_dispatch: # 允许手动触发
+  repository_dispatch:
+    types: [eth_phishing_detect_updated] # 当检测到上游仓库更新时触发
+
+# Add concurrency group to prevent conflicts
+concurrency:
+  group: eth-phishing-detect-sync # 独立的并发组
+  cancel-in-progress: false
+
+jobs:
+  sync-and-extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          fetch-depth: 0
+
+      - name: Checkout eth-phishing-detect repository
+        uses: actions/checkout@v3
+        with:
+          repository: MetaMask/eth-phishing-detect
+          path: upstream-eth-phishing-detect
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Copy upstream files to expected location
+        run: |
+          mkdir -p eth-phishing-detect/src
+          cp -r upstream-eth-phishing-detect/src/* eth-phishing-detect/src/
+          ls -la eth-phishing-detect/src/
+
+      - name: Run extraction script
+        run: npm run extract-eth-phishing
+
+      - name: Commit and push changes
+        run: |
+          # 配置 git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 清理未跟踪的文件，但保留我们的目标文件
+          git clean -fd upstream-eth-phishing-detect/
+          
+          # 检查文件状态
+          echo "Checking file status before add:"
+          git status
+          
+          # 暂存目标文件
+          git add eth-phishing-detect/little-snitch-blocklist.json
+          
+          # 检查暂存状态
+          echo "Checking status after add:"
+          git status
+          
+          # 如果有更改则提交
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update extracted data from eth-phishing-detect"
+            
+            # 尝试推送，如果失败则重试
+            MAX_RETRIES=3
+            RETRY_COUNT=0
+            
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              git fetch origin main
+              git rebase origin/main
+              
+              if git push origin main; then
+                echo "Successfully pushed changes"
+                break
+              else
+                RETRY_COUNT=$((RETRY_COUNT + 1))
+                if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+                  echo "Failed to push after $MAX_RETRIES attempts"
+                  exit 1
+                fi
+                echo "Push failed, retrying... (Attempt $RETRY_COUNT of $MAX_RETRIES)"
+                sleep 5
+              fi
+            done
+          fi
