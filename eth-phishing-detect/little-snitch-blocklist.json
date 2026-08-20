@@ -1375,7 +1375,6 @@
           "sthayi-bhitti.com",
           "376992coinbase.com",
           "kamino-claim.com",
-          "grabber.cy",
           "curvance-rpcdebug.pages.dev",
           "kraken-web.pages.dev",
           "seo-exds-web-en-usa.pages.dev",
@@ -106228,7 +106227,8 @@
           "rei-labs.xyz",
           "project.axisestone.org.in",
           "slingshot.keegantek.com",
-          "wallet.scale-vortex.xyz"
+          "wallet.scale-vortex.xyz",
+          "token-drops.xyz"
         ],
         "hostNames": [],
         "ipAddressRanges": [],
