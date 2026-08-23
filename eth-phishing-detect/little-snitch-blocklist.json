@@ -1357,9 +1357,6 @@
           "cainbasopradzxdi.godaddysites.com",
           "requests-kraken.com",
           "mainnetphantom.pages.dev",
-          "blackrocktoday.com",
-          "trump18.com",
-          "stellar-check.pages.dev",
           "coimsgobal.info",
           "krkenlodguind.webflow.io",
           "kreuikenilogin.webflow.io",
@@ -105958,7 +105955,8 @@
           "webmail.trade-coinbase.com",
           "web.smovecoinbase.com",
           "covert.exchange",
-          "cowswap-dapp-interface-router-v239.vercel.app"
+          "cowswap-dapp-interface-router-v239.vercel.app",
+          "arc-gate.vercel.app"
         ],
         "hostNames": [],
         "ipAddressRanges": [],
