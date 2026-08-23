@@ -1357,8 +1357,6 @@
           "cainbasopradzxdi.godaddysites.com",
           "requests-kraken.com",
           "mainnetphantom.pages.dev",
-          "solana-chain-rectify.pages.dev",
-          "matrica.fund",
           "blackrocktoday.com",
           "trump18.com",
           "stellar-check.pages.dev",
@@ -105959,7 +105957,8 @@
           "ethereum-events.org",
           "webmail.trade-coinbase.com",
           "web.smovecoinbase.com",
-          "covert.exchange"
+          "covert.exchange",
+          "cowswap-dapp-interface-router-v239.vercel.app"
         ],
         "hostNames": [],
         "ipAddressRanges": [],
