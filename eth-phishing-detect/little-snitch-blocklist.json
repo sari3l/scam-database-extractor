@@ -1139,7 +1139,6 @@
           "airdrop-waronusd1.xyz",
           "phantom.printopost.com",
           "phantom-wallets.com.westnationalplc.ru",
-          "opensea-nftsmints.vercel.app",
           "coinbasepro_loginx.godaddysites.com",
           "fixedfloat-swap.org",
           "events-debridge.xyz",
@@ -98026,7 +98025,13 @@
           "trustpay.cash",
           "itrust-walllet.pages.dev",
           "walletconnect.help-risk-2.workers.dev",
-          "perfectwalletconnect.com"
+          "perfectwalletconnect.com",
+          "robinhood-hk.com",
+          "io-robin-hoodlog-in.pages.dev",
+          "account-robinhud.pages.dev",
+          "uniswap-66s.pages.dev",
+          "sol-incinerator.allocation.ink",
+          "axiomkits.com"
         ],
         "hostNames": [],
         "ipAddressRanges": [],
